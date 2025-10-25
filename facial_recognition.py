@@ -2,12 +2,12 @@ from backend.face_normalizer import compute_landmark_differences
 from retinaface import RetinaFace
 from agent import RoastingAI
 from align_face import align_face
+import numpy as np
 import pyttsx3
 import asyncio
 import json
 import cv2
 import re
-import numpy as np
 
 scan_lock = False
 
@@ -79,8 +79,6 @@ async def process_snapshot(img):
         await asyncio.to_thread(tts.runAndWait)
         tts.stop()
 
-        x1, y1, x2, y2 = face['facial_area']
-        cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 2)
         aligned_face = align_face(face, img)
         cv2.imshow('Aligned Snapshot', aligned_face)
 
@@ -128,7 +126,6 @@ async def main():
             asyncio.create_task(process_snapshot(frame))
             frames_with = 0
             scan_lock = True
-
 
         # Display the captured frame
         cv2.imshow('Face Tracking', processed_frame)
