@@ -57,6 +57,8 @@ async def process_snapshot(img):
         x1, y1, x2, y2  = face['facial_area']
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
+        aligned_face = align_face(face, img)
+        cv2.imshow('Aligned Snapshot', aligned_face)
         diff = compute_landmark_differences(faces)
         roast = await asyncio.to_thread(roaster.promptAI, diff)
         print()
@@ -68,9 +70,6 @@ async def process_snapshot(img):
         tts.say(roast['Roast'])
         await asyncio.to_thread(tts.runAndWait)
         tts.stop()
-
-        aligned_face = align_face(face, img)
-        cv2.imshow('Aligned Snapshot', aligned_face)
 
     else:
         print("Error! No face found!")
