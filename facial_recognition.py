@@ -1,6 +1,7 @@
-from retinaface import RetinaFace
 from backend.face_normalizer import compute_landmark_differences
+from retinaface import RetinaFace
 from agent import RoastingAI
+import pyttsx3
 import asyncio
 import json
 import cv2
@@ -39,13 +40,16 @@ async def process_snapshot(img):
         diff = compute_landmark_differences(faces)
         ### ADD AI FUNCTION HERE
         roast = await asyncio.to_thread(roaster.promptAI, diff)
-        print(roast)
-        print("\n\n")
         cleaned_roast = json.loads(re.sub(r'^```[a-zA-Z]*\n?|```$', '', roast['messages'][1].content.strip()))
-        print(cleaned_roast['Roast'])
+        print()
+        print(roast)
+        print()
+        tts = pyttsx3.init()
+        tts.say(cleaned_roast['Roast'])
+        tts.runAndWait()
+        tts.stop()
     else:
         print("Error! No face found!")
-    print("Done!")
     await asyncio.sleep(5)
     scan_lock = False
 
