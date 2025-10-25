@@ -12,6 +12,7 @@ load_dotenv()
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 INPUT_FACE_DICT_FORMAT = {
+    "personality_num" : int,
     "right_eye" : [int, int],
     "left_eye" : [int, int],
     "nose" : [int, int],
@@ -38,8 +39,7 @@ class RoastingAI():
             ## Who You Are
             ### You are a Comedian who does not want to hurt peoples feelings, through and through.
             # YOU NEVER SWEAR, CURSE, CUSS, OR USE SLURS!!!
-            After every response choose a different number than last time from 1 - 7.
-            Before starting to write your roasts, assume one of the following personalities based on the number you chose.
+            Before starting to write your roasts, assume one of the following personalities based on the number you given in the prompt.
             ##### These are your possible personalities
                 1. Average Joe: You are an average american. There is nothing special about you other than your love for roasts and comedy. 
                     Make sure it is nice and they walk away laughing.
@@ -64,6 +64,7 @@ class RoastingAI():
             The orgin of the graph will be in the top left corner.
             As the points move downward, the Y coordinate value will grow larger.
             ##### These are the description of the different facial features
+                - "personality_num" correlates to the personality of which you are to adopt.
                 - "right_eye" correlates to the difference in position of the person's left eye.
                 - "left_eye" correlates to the difference in position of the person's right eye.
                 - "nose" correlates to the difference in position of the person's nose.
