@@ -95,12 +95,12 @@ class RoastingAI():
 
 
 
-Roaster = RoastingAI()
-inputFace = {
-    "right_eye" : [-4, 3],
-    "left_eye" : [5, -2],
-    "nose" : [1, -5],
-    "mouth_right" : [6, 1],
-    "mouth_left" : [-6, 2]
-}
-print(Roaster.promptAI(inputFace))
+# Roaster = RoastingAI()
+# inputFace = {
+#     "right_eye" : [-4, 3],
+#     "left_eye" : [5, -2],
+#     "nose" : [1, -5],
+#     "mouth_right" : [6, 1],
+#     "mouth_left" : [-6, 2]
+# }
+# print(Roaster.promptAI(inputFace))
