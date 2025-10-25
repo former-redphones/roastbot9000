@@ -1,4 +1,5 @@
 from retinaface import RetinaFace
+from backend.face_normalizer import compute_landmark_differences
 import asyncio
 import cv2
 
@@ -11,7 +12,6 @@ async def process_snapshot(img):
     global scan_lock
     print("Processing...")
     faces = await asyncio.to_thread(RetinaFace.detect_faces, img)
-    print(faces)
     if len(faces) >= 1:
         face = max(faces.values(), key=lambda f: (
             (f["facial_area"][2] - f["facial_area"][0]) *
@@ -24,7 +24,6 @@ async def process_snapshot(img):
             return
         
         for landmark in face['landmarks'].values():
-            print(landmark[0])
             cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
 
         # cv2.circle(img, (int(face['landmarks']['right_eye'][0]), int(face['landmarks']['right_eye'][1])), 10, (255, 255, 255), -1)
@@ -32,6 +31,7 @@ async def process_snapshot(img):
         x1, y1, x2, y2  = face['facial_area']
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
+        print(compute_landmark_differences(faces))
         ### ADD AI FUNCTION HERE
         roast = PLACEHOLDER_ROAST()
     else:
