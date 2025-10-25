@@ -13,3 +13,4 @@ The point of this project was to create something that can roast people as they 
 - 
 - It was a struggle to find which of the methods for AI Agent creation was the modern method. Langchain and that entire industry is growing so fast.
 - It took a lot of attempts to get the Instructions for the AI to a point where it worked. At a couple of points, it was breraking its filter.
+- There are a lot of facial recognition tools out there for python, so we had to figure out what was the best to use. Once we found one that worked, we found out it was too slow, and we ended up with a hybrid approach using one fast model and one thorough model.

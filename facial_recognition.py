@@ -3,6 +3,7 @@ from retinaface import RetinaFace
 from agent import RoastingAI
 import pyttsx3
 import asyncio
+import random
 import json
 import cv2
 import re
@@ -29,8 +30,8 @@ async def process_snapshot(img):
             scan_lock = False
             return
         
-        # for landmark in face['landmarks'].values():
-        #     cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
+        for landmark in face['landmarks'].values():
+            cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
 
         # cv2.circle(img, (int(face['landmarks']['right_eye'][0]), int(face['landmarks']['right_eye'][1])), 10, (255, 255, 255), -1)
 
@@ -38,6 +39,7 @@ async def process_snapshot(img):
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
         diff = compute_landmark_differences(faces)
+        diff['personality_num'] = random.randint(1,7)
         roast = await asyncio.to_thread(roaster.promptAI, diff)
         print()
         print(roast)
