@@ -18,9 +18,6 @@ def PLACEHOLDER_ROAST():
     return "placeholder burn, (gottem)"
 
 def rotate_landmarks(landmarks, angle, center):
-    """
-    Rotate facial landmarks around a given center point by angle degrees.
-    """
     rotated = {}
     rad = np.radians(angle)
     cos_a = np.cos(rad)
