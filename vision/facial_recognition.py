@@ -4,20 +4,36 @@ import cv2
 
 scan_lock = False
 
+def PLACEHOLDER_ROAST():
+    return "placeholder burn, (gottem)"
+
 async def process_snapshot(img):
     global scan_lock
     print("Processing...")
     faces = await asyncio.to_thread(RetinaFace.detect_faces, img)
     print(faces)
     if len(faces) >= 1:
-        # x1, y1, x2, y2 = faces.values()['face_1']['facial_area']
-        x1, y1, x2, y2 =  max(faces.values(), key=lambda f: (
+        face = max(faces.values(), key=lambda f: (
             (f["facial_area"][2] - f["facial_area"][0]) *
             (f["facial_area"][3] - f["facial_area"][1])
-        ))['facial_area']
+        ))
+
+        if face['score'] < 0.75:
+            print("Low confidance, discarding")
+            scan_lock = False
+            return
+        
+        for landmark in face['landmarks'].values():
+            print(landmark[0])
+            cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
+
+        # cv2.circle(img, (int(face['landmarks']['right_eye'][0]), int(face['landmarks']['right_eye'][1])), 10, (255, 255, 255), -1)
+
+        x1, y1, x2, y2  = face['facial_area']
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
         ### ADD AI FUNCTION HERE
+        roast = PLACEHOLDER_ROAST()
     else:
         print("Error! No face found!")
     print("Done!")
