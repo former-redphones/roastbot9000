@@ -104,6 +104,8 @@ async def main():
         await asyncio.sleep(0)
         
     cv2.destroyAllWindows()
+    for task in asyncio.all_tasks():
+        task.cancel()
 
 
 if __name__ == "__main__":
