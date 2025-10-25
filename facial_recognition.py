@@ -41,14 +41,11 @@ async def process_snapshot(img):
         roast = await asyncio.to_thread(roaster.promptAI, diff)
         print()
         print(roast)
-        cleaned_roast = json.loads(
-            re.sub(r'^```(?:json)?\s*|\s*```$', '', roast['messages'][1].content.strip())
-        )
         print("\n\n")
-        print(cleaned_roast['Roast'])
+        print(roast['Roast'])
         print()
         tts = pyttsx3.init()
-        tts.say(cleaned_roast['Roast'])
+        tts.say(roast['Roast'])
         await asyncio.to_thread(tts.runAndWait)
         tts.stop()
     else:
