@@ -145,6 +145,7 @@ class RoastingAI():
 
 # Roaster = RoastingAI()
 # inputFace = {
+#     "personality_num" : 7
 #     "right_eye" : [-4, 3],
 #     "left_eye" : [5, -2],
 #     "nose" : [1, -5],
