@@ -2,8 +2,7 @@ pip libraries to install:
 
 langchain
 langchain_google_genai
-langchain_core
 python-dotenv
 pydantic
 
-pip install langchain langchain_google_genai python-dotenv pydantic langchain_core
+pip install langchain langchain_google_genai python-dotenv pydantic
