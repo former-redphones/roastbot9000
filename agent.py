@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
-from langchain_core.output_parsers import PydanticOutputParser
 from typing import Dict, Any
 
 load_dotenv()
