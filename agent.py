@@ -5,6 +5,9 @@ from pydantic import BaseModel
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import create_agent
 from typing import Dict, Any
+import pyttsx3
+import asyncio
+
 
 load_dotenv()
 
@@ -143,13 +146,15 @@ class RoastingAI():
 
 
 
-# Roaster = RoastingAI()
-# inputFace = {
-#     "personality_num" : 7
-#     "right_eye" : [-4, 3],
-#     "left_eye" : [5, -2],
-#     "nose" : [1, -5],
-#     "mouth_right" : [6, 1],
-#     "mouth_left" : [-6, 2]
-# }
-# print(Roaster.promptAI(inputFace))
+Roaster = RoastingAI()
+inputFace = {
+    "personality_num" : 3,
+    "right_eye" : [-4, 3],
+    "left_eye" : [5, -2],
+    "nose" : [1, -5],
+    "mouth_right" : [6, 1],
+    "mouth_left" : [-6, 2]
+}
+roast = Roaster.promptAI(inputFace)
+print(roast)
+pyttsx3.speak(roast['Roast'])
