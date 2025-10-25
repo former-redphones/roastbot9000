@@ -19,7 +19,7 @@ async def process_snapshot(img):
         ))
 
         if face['score'] < 0.75:
-            print("Low confidance, discarding")
+            print("Low confidence, discarding")
             scan_lock = False
             return
         
