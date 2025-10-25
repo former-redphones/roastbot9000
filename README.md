@@ -3,6 +3,7 @@
 ### Authors: Bryce Tyre, Jacob Hutchens, and Oliver Thornton
 
 ## Inspiration
+- It sounded fun
 
 ## What it does
 The point of this project was to create something that can roast people as they walk up to your door. Nobody wants those pesky neighbhors around.
@@ -21,9 +22,11 @@ The point of this project was to create something that can roast people as they 
  - The program uses multiple threads to allow seamless facial tracking while processing and speaking
 
 ## What we learned
+- A LOT
 
 ## What's next for Roastbot9000
 - We have plans to recognize even more about someone, like age or gender
 - Add a compliment mode
 - In the far future, roastbot may be able to find your facebook profile for further ammunition
+
 - We are also working on a second video with a different spin that can introduce our project in detail to new people
