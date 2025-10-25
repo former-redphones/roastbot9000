@@ -11,6 +11,7 @@ def align_face(face_dict, img):
     dy = right_eye[1] - left_eye[1]
     dx = right_eye[0] - left_eye[0]
     angle = np.degrees(np.arctan2(dy, dx))
+    angle = angle - 180
     
     M = cv2.getRotationMatrix2D(eye_center, angle, 1.0)
     

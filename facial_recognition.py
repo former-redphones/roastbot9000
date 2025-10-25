@@ -1,6 +1,7 @@
 from backend.face_normalizer import compute_landmark_differences
 from retinaface import RetinaFace
 from agent import RoastingAI
+from align_face import align_face
 import pyttsx3
 import asyncio
 import json
@@ -36,7 +37,8 @@ async def process_snapshot(img):
 
         x1, y1, x2, y2  = face['facial_area']
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
-        cv2.imshow('Snapshot', img)
+        aligned_face = align_face(face, img)
+        cv2.imshow('Aligned Snapshot', aligned_face)
         diff = compute_landmark_differences(faces)
         roast = await asyncio.to_thread(roaster.promptAI, diff)
         print()
