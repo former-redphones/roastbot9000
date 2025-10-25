@@ -5,6 +5,7 @@ from align_face import align_face
 import numpy as np
 import pyttsx3
 import asyncio
+import random
 import json
 import cv2
 import re
@@ -51,23 +52,15 @@ async def process_snapshot(img):
             scan_lock = False
             return
         
-        # for landmark in face['landmarks'].values():
-        #     cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
+        for landmark in face['landmarks'].values():
+            cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
 
         # cv2.circle(img, (int(face['landmarks']['right_eye'][0]), int(face['landmarks']['right_eye'][1])), 10, (255, 255, 255), -1)
-        left_eye = face['landmarks']['left_eye']
-        right_eye = face['landmarks']['right_eye']
-        eye_center = ((left_eye[0] + right_eye[0]) / 2, (left_eye[1] + right_eye[1]) / 2)
-        dy = right_eye[1] - left_eye[1]
-        dx = right_eye[0] - left_eye[0]
-        angle = np.degrees(np.arctan2(dy, dx))
 
-        rotated_landmarks = rotate_landmarks(face['landmarks'], -angle, eye_center)
-
-        face_rotated = face.copy()
-        face_rotated['landmarks'] = rotated_landmarks
-        diff = compute_landmark_differences({0: face_rotated})
-
+        x1, y1, x2, y2  = face['facial_area']
+        cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
+        cv2.imshow('Snapshot', img)
+        diff = compute_landmark_differences(faces)
         roast = await asyncio.to_thread(roaster.promptAI, diff)
         print()
         print(roast)
