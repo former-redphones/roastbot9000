@@ -1,9 +1,14 @@
 from retinaface import RetinaFace
 from backend.face_normalizer import compute_landmark_differences
+from agent import RoastingAI
 import asyncio
+import json
 import cv2
+import re
 
 scan_lock = False
+
+roaster = RoastingAI()
 
 def PLACEHOLDER_ROAST():
     return "placeholder burn, (gottem)"
@@ -23,17 +28,21 @@ async def process_snapshot(img):
             scan_lock = False
             return
         
-        for landmark in face['landmarks'].values():
-            cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
+        # for landmark in face['landmarks'].values():
+        #     cv2.circle(img, (int(landmark[0]), int(landmark[1])), 5, (0, 255, 255), -1)
 
         # cv2.circle(img, (int(face['landmarks']['right_eye'][0]), int(face['landmarks']['right_eye'][1])), 10, (255, 255, 255), -1)
 
         x1, y1, x2, y2  = face['facial_area']
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
-        print(compute_landmark_differences(faces))
+        diff = compute_landmark_differences(faces)
         ### ADD AI FUNCTION HERE
-        roast = PLACEHOLDER_ROAST()
+        roast = await asyncio.to_thread(roaster.promptAI, diff)
+        print(roast)
+        print("\n\n")
+        cleaned_roast = json.loads(re.sub(r'^```[a-zA-Z]*\n?|```$', '', roast['messages'][1].content.strip()))
+        print(cleaned_roast['Roast'])
     else:
         print("Error! No face found!")
     print("Done!")
