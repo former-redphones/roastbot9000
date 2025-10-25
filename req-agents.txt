@@ -1,0 +1,7 @@
+pip libraries to install:
+
+langchain
+langchain_google_genai
+python-dotenv
+
+pip install langchain langchain_google_genai python-dotenv
