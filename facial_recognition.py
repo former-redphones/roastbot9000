@@ -43,6 +43,8 @@ async def process_snapshot(img):
         cleaned_roast = json.loads(re.sub(r'^```[a-zA-Z]*\n?|```$', '', roast['messages'][1].content.strip()))
         print()
         print(roast)
+        print("\n\n")
+        print(cleaned_roast['Roast'])
         print()
         tts = pyttsx3.init()
         tts.say(cleaned_roast['Roast'])
