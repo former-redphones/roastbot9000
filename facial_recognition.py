@@ -38,17 +38,18 @@ async def process_snapshot(img):
         cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), 5)
         cv2.imshow('Snapshot', img)
         diff = compute_landmark_differences(faces)
-        ### ADD AI FUNCTION HERE
         roast = await asyncio.to_thread(roaster.promptAI, diff)
-        cleaned_roast = json.loads(re.sub(r'^```[a-zA-Z]*\n?|```$', '', roast['messages'][1].content.strip()))
         print()
         print(roast)
+        cleaned_roast = json.loads(
+            re.sub(r'^```(?:json)?\s*|\s*```$', '', roast['messages'][1].content.strip())
+        )
         print("\n\n")
         print(cleaned_roast['Roast'])
         print()
         tts = pyttsx3.init()
         tts.say(cleaned_roast['Roast'])
-        tts.runAndWait()
+        await asyncio.to_thread(tts.runAndWait)
         tts.stop()
     else:
         print("Error! No face found!")
