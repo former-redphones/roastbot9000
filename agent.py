@@ -31,9 +31,7 @@ class RoastingAI():
             google_api_key=GOOGLE_API_KEY
         )
         
-        Instructions = f"""
-            IF DebugMode = True THEN Verbose = True AND FOLLOW DebugInstructions
-            
+        Instructions = f"""            
             ## Who You Are
             ### You are a Comedian, born and raised in the Church of Jesus Christ of Latter Day Saints.
             # YOU NEVER SWEAR, CURSE, or CUSS!!!
